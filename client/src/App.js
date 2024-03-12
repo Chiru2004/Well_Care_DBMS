@@ -1,10 +1,28 @@
-
+import Login from './pages/Login_User/login';
+import Register from './pages/Register_User/register_user';
+import Landing from './pages/Landing_page/landing';
+import Book_appointment from './pages/APPOINTMENT/appointment';
+import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
+import SlotsDisplayPage from './pages/slot_display/slot_display.js';
+import Confirmappointment from './pages/APPOINTMENT/confirmappointment.js';
 import './App.css';
-
+import Home from './pages/Home/home';
 function App() {
   return (
     <div className="App">
-    <h1>hello</h1>
+    <Router>
+    <Routes>
+    <Route path="/login" element={<Login/>}/>
+    <Route path="/register" element={<Register/>}/>
+    <Route path="/home" element={<Home/>}/>
+    <Route path='/' element={<Landing/>}/>
+    <Route path='/book_appointment' element={<Book_appointment/>}/>
+    <Route path="/slots_display" element={<SlotsDisplayPage/>} />
+    <Route path='/confirmappointment' element ={<Confirmappointment/>}/>
+
+
+    </Routes>
+    </Router>
     </div>
   );
 }

@@ -1,0 +1,58 @@
+/* LoginForm.css */
+
+.login-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .login-form-wrapper {
+    width: 300px; /* Increased width */
+    padding: 40px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 7px; /* Increased border radius */
+    background-color: #fff;
+  }
+  
+  .login-form-header {
+    text-align: center;
+    font-size: 28px; /* Increased font size */
+    margin-bottom: 30px; /* Increased margin */
+  }
+  
+  .form-group {
+    margin-bottom: 20px; /* Increased margin */
+    margin-right: 12px;
+   
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px; /* Increased padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px; /* Increased font size */
+  }
+  
+  .error {
+    color: red;
+    font-size: 16px; /* Increased font size */
+    margin-top: 8px; /* Increased margin */
+  }
+  
+  .login-button {
+    width: 100%;
+    padding: 10px; /* Increased padding */
+    border: none;
+    border-radius: 5px;
+    background-color: #3897f0;
+    color: #fff;
+    font-size: 18px; /* Increased font size */
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: #3578e5;
+  }
+  

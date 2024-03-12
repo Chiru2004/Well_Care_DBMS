@@ -1,0 +1,74 @@
+.slotcontainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sdoctor-details {
+    width: 80%;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #e6f7ec;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .date-selection {
+    width: 20%;
+    padding: 20px;
+    margin:0 auto;
+    margin-bottom: 20px;
+    background-color: #e6f2fc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .date-selection label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: black;
+  }
+  
+  .date-selection input[type="date"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .slot-container {
+    width: 80%;
+  }
+  
+  .slot-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  .slot {
+    background-color: #f7f0e6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .slot p {
+    margin-bottom: 10px;
+  }
+  
+  .book-now-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .book-now-button:hover {
+    background-color: #0056b3;
+  }
+  
