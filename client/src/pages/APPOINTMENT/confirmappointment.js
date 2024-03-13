@@ -1,11 +1,13 @@
-import React from 'react';
-import { useLocation} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation, useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import './confirmappointment.css'; // Import CSS file for styling
 
 const ConfirmAppointmentPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const { doctor, user, slotDate, slotTime } = location.state;
+  const [bookingError, setBookingError] = useState('');
 
   const handleConfirmAppointment = async () => {
     try {
@@ -16,10 +18,24 @@ const ConfirmAppointmentPage = () => {
         appointmentTime: slotTime,
         appointmentDate: slotDate,
       });
-      alert("succes");// If the appointment is confirmed successfully, redirect to a success page
+      // If the appointment is confirmed successfully, redirect to a success page
+      navigate('/appointmentdetails', {
+        state: {
+          doctor,
+          user,
+          slotDate,
+          slotTime,
+        }
+      });
     } catch (error) {
       console.error('Error confirming appointment:', error);
-      // Handle error, show a message to the user, etc.
+      if (error.response && error.response.status === 400) {
+        // Slot is already booked
+        setBookingError('This slot is already booked. Please select another slot.');
+      } else {
+        // Other errors
+        setBookingError('Error confirming appointment. Please try again later.');
+      }
     }
   };
 
@@ -45,7 +61,11 @@ const ConfirmAppointmentPage = () => {
           <p>Time: {slotTime}</p>
         </div>
       </div>
+      {bookingError && <p className="error-message">{bookingError}</p>}
+      <div className="buttondisplay">
       <button className="confirm-button" onClick={handleConfirmAppointment}>Confirm Appointment</button>
+      <button className="confirm-button" onClick={() => navigate('/book_appointment')} > Choose Another Slot</button>
+      </div>
     </div>
   );
 };

@@ -186,7 +186,47 @@ app.get('/api/slots', (req, res) => {
     });
 });
 
+const slotsLocks = {}; // Object to store slot locking status
 
+app.post('/api/confirmappointment', (req, res) => {
+    const { patientId, doctorId, appointmentTime, appointmentDate } = req.body;
+    const slotKey = `${doctorId}_${appointmentDate}_${appointmentTime}`;
+
+    // Check if the slot is already locked
+    if (slotsLocks[slotKey]) {
+        return res.status(400).json({ message: "Slot is already booked" });
+    }
+
+    // Lock the slot to prevent concurrent bookings
+    slotsLocks[slotKey] = true;
+
+    // Insert into appointments table
+    db.query('INSERT INTO appointments (patient_id, doc_id, appointment_time, appointment_date, appointment_status) VALUES (?, ?, ?, ?, ?)', [patientId, doctorId, appointmentTime, appointmentDate, 'Confirmed'], (error, results) => {
+        if (error) {
+            console.error('Error inserting appointment:', error);
+            return res.status(500).json({ message: "Internal server error" });
+        }
+        // Update slots table
+        db.query('UPDATE slots SET slot_occupied = ? WHERE doc_id = ? AND slot_date = ? AND slot_time = ?', [1, doctorId, appointmentDate, appointmentTime], (error, results) => {
+            if (error) {
+                console.error('Error updating slots:', error);
+                return res.status(500).json({ message: "Internal server error" });
+            }
+            res.status(200).json({ message: "Appointment confirmed successfully" });
+        });
+    });
+});
+
+
+
+
+
+
+
+
+
+
+/*
 
 app.post('/api/confirmappointment', (req, res) => {
     const { patientId, doctorId, appointmentTime, appointmentDate } = req.body;
@@ -212,7 +252,7 @@ app.post('/api/confirmappointment', (req, res) => {
 
 
 
-
+*/
 
 
 app.listen(3001, () => {
