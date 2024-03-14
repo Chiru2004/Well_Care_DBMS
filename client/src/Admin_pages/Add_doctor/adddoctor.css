@@ -1,0 +1,55 @@
+/* AddDoctorForm.css */
+.adddoctorform-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .adddoctorform-group {
+    margin-bottom: 20px;
+  }
+  
+  .adddoctorform-label {
+    font-size: 18px;
+    margin-bottom: 8px;
+    display: block;
+    color: #333;
+  }
+  
+  .adddoctorform-input {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  
+  .adddoctorform-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+  }
+  
+  .adddoctorform-error {
+    color: #dc3545;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  .adddoctorform-submit {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+  }
+  
+  .adddoctorform-submit:hover {
+    background-color: #45a049;
+  }
+  

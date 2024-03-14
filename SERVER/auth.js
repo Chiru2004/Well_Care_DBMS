@@ -217,42 +217,27 @@ app.post('/api/confirmappointment', (req, res) => {
     });
 });
 
-
-
-
-
-
-
-
-
-
-/*
-
-app.post('/api/confirmappointment', (req, res) => {
-    const { patientId, doctorId, appointmentTime, appointmentDate } = req.body;
-    // Insert into appointments table
-    db.query('INSERT INTO appointments (patient_id, doc_id, appointment_time, appointment_date, appointment_status) VALUES (?, ?, ?, ?, ?)', [patientId, doctorId, appointmentTime, appointmentDate, 'Confirmed'], (error, results) => {
-        if (error) {
-            console.error('Error inserting appointment:', error);
-            res.status(500).json({ message: "Internal server error" });
-            return;
-        }
-        // Update slots table
-        db.query('UPDATE slots SET slot_occupied = ? WHERE doc_id = ? AND slot_date = ? AND slot_time = ?', [1, doctorId, appointmentDate, appointmentTime], (error, results) => {
-            if (error) {
-                console.error('Error updating slots:', error);
-                res.status(500).json({ message: "Internal server error" });
-                return;
-            }
-            res.status(200).json({ message: "Appointment confirmed successfully" });
-        });
+app.post('/api/doctors', (req, res) => {
+    const { docName, docAge, docQualification, docDept, docExperience, docContact, docSpecification } = req.body;
+    const query = 'INSERT INTO doctor (doc_name, doc_age, doc_qualification, doc_dept, doc_experience, doc_contact, doc_specification) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    db.query(query, [docName, docAge, docQualification, docDept, docExperience, docContact, docSpecification], (err, results) => {
+      if (err) {
+        console.error('Error adding doctor:', err);
+        res.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      res.status(201).json({ message: 'Doctor added successfully', doctorId: results.insertId });
     });
-});
+  });
+  
 
 
 
 
-*/
+
+
+
+           
 
 
 app.listen(3001, () => {
