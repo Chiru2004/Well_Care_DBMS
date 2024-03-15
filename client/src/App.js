@@ -7,6 +7,7 @@ import SlotsDisplayPage from './pages/slot_display/slot_display.js';
 import Confirmappointment from './pages/APPOINTMENT/confirmappointment.js';
 import AppointmentDetailsPage from './pages/APPOINTMENT/appointment_details.js';
 import AddDoctorForm from './Admin_pages/Add_doctor/adddoctor.js';
+import ManageDoctorsPage from './Admin_pages/Manage_doctors/managedoctors.js';
 import './App.css';
 import Home from './pages/Home/home';
 function App() {
@@ -21,9 +22,9 @@ function App() {
     <Route path='/book_appointment' element={<BookAppointment/>}/>
     <Route path="/slots_display" element={<SlotsDisplayPage/>} />
     <Route path='/confirmappointment' element ={<Confirmappointment/>}/>
-<Route path='/appointmentdetails' element={<AppointmentDetailsPage/>}/>
-<Route path='/addadoctor' element={<AddDoctorForm/>}/>
-
+    <Route path='/appointmentdetails' element={<AppointmentDetailsPage/>}/>
+    <Route path='/addadoctor' element={<AddDoctorForm/>}/>
+    <Route path='/managedoctors' element={<ManageDoctorsPage/>}/>
     </Routes>
     </Router>
     </div>

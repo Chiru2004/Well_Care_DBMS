@@ -2,13 +2,14 @@ import express from 'express';
 import mysql from 'mysql2';
 import cors from 'cors';
 import bcrypt from 'bcrypt';
+import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import  {createTokens,validateToken} from './jwt.js';
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000',methods:["POST","GET"],credentials: true })); // Allow requests from localhost:3000
+app.use(cors({ origin: 'http://localhost:3000',methods:["POST","GET","DELETE"],credentials: true })); // Allow requests from localhost:3000
 app.use(cookieParser());
-
+app.use(bodyParser.json());
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -134,7 +135,7 @@ app.get('/api/departments', (req, res) => {
 
         // Extract departments from the results
         const departments = results.map(row => row.department);
-console.log(departments);
+         console.log(departments);
         // Send the list of departments as a response
         res.json(departments);
     });
@@ -217,7 +218,7 @@ app.post('/api/confirmappointment', (req, res) => {
     });
 });
 
-app.post('/api/doctors', (req, res) => {
+app.post('/api/adddoctors', (req, res) => {
     const { docName, docAge, docQualification, docDept, docExperience, docContact, docSpecification } = req.body;
     const query = 'INSERT INTO doctor (doc_name, doc_age, doc_qualification, doc_dept, doc_experience, doc_contact, doc_specification) VALUES (?, ?, ?, ?, ?, ?, ?)';
     db.query(query, [docName, docAge, docQualification, docDept, docExperience, docContact, docSpecification], (err, results) => {
@@ -229,8 +230,33 @@ app.post('/api/doctors', (req, res) => {
       res.status(201).json({ message: 'Doctor added successfully', doctorId: results.insertId });
     });
   });
+  //fetch doctors
+  app.get('/api/fetchdoctors', (req, res) => {
+    const query = 'SELECT * FROM doctor';
+    db.query(query, (err, results) => {
+      if (err) {
+        console.error('Error fetching doctors:', err);
+        res.status(500).json({ message: 'Internal server error' });
+        return;
+      }
+      res.json(results);
+    });
+  });
   
-
+  // Remove a doctor
+  app.delete('/api/deletedoctors/:id', (req, res) => {
+    const doctorId = req.params.id;
+    const query = 'DELETE FROM doctor WHERE doc_id = ?';
+    db.query(query, [doctorId], (err, results) => {
+      if (err) {
+        console.error('Error removing doctor:', err);
+        res.status(500).json({ message: 'Internal server error' });
+        return;
+      }
+      res.status(200).json({ message: 'Doctor removed successfully' });
+    });
+  });
+  
 
 
 

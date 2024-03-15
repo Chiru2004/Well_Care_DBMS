@@ -12,11 +12,14 @@ const AddDoctorForm = () => {
     docName: Yup.string().required('Doctor name is required'),
     docAge: Yup.number().required('Age is required').positive('Age must be a positive number'),
     docQualification: Yup.string().required('Qualification is required'),
-    docDept: Yup.string().required('Department is required'),
+    docDept: Yup.string()
+      .required('Department is required')
+      .test('capitalize-first-letter', 'Department must start with a capital letter and be lowercase', value => /^[A-Z][a-z]*$/.test(value)),
     docExperience: Yup.number().required('Experience is required').positive('Experience must be a positive number'),
     docContact: Yup.string().required('Contact number is required'),
     docSpecification: Yup.string().required('Specification is required')
   });
+  
 
   const formik = useFormik({
     initialValues: {
@@ -31,7 +34,7 @@ const AddDoctorForm = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.post('http://localhost:3001/api/doctors', values);
+        await axios.post('http://localhost:3001/api/adddoctors', values);
         alert('Doctor added successfully');
         // Reset form fields after successful submission
         formik.resetForm();
