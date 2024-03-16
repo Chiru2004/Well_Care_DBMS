@@ -1,0 +1,36 @@
+.admindeleteslots_admin_slot_delete_doctor-slots {
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.admindeleteslots_admin_slot_delete_slot-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.admindeleteslots_slot {
+  background-color: #f0f0f0;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.admindeleteslots_slot p {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.admindeleteslots_slot button {
+  padding: 12px 24px;
+  background-color: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.admindeleteslots_slot button:hover {
+  background-color: #e74c3c;
+}

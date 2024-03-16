@@ -190,7 +190,7 @@ app.get('/api/slots', (req, res) => {
 const slotsLocks = {}; // Object to store slot locking status
 
 app.post('/api/confirmappointment', (req, res) => {
-    const { patientId, doctorId, appointmentTime, appointmentDate } = req.body;
+    const { patientId, doctorId, appointmentTime, appointmentDate,slotId } = req.body;
     const slotKey = `${doctorId}_${appointmentDate}_${appointmentTime}`;
 
     // Check if the slot is already locked
@@ -202,7 +202,7 @@ app.post('/api/confirmappointment', (req, res) => {
     slotsLocks[slotKey] = true;
 
     // Insert into appointments table
-    db.query('INSERT INTO appointments (patient_id, doc_id, appointment_time, appointment_date, appointment_status) VALUES (?, ?, ?, ?, ?)', [patientId, doctorId, appointmentTime, appointmentDate, 'Confirmed'], (error, results) => {
+    db.query('INSERT INTO appointments (patient_id, doc_id, appointment_time, appointment_date, appointment_status,slot_id) VALUES (?, ?, ?, ?, ?,?)', [patientId, doctorId, appointmentTime, appointmentDate, 'Confirmed',slotId], (error, results) => {
         if (error) {
             console.error('Error inserting appointment:', error);
             return res.status(500).json({ message: "Internal server error" });
@@ -256,9 +256,76 @@ app.post('/api/adddoctors', (req, res) => {
       res.status(200).json({ message: 'Doctor removed successfully' });
     });
   });
-  
+
+//INSERTING SLOTS
+// POST endpoint to add a slot to a doctor
+app.post('/api/addslot', async (req, res) => {
+  const { doctorId, slotDate, slotTime } = req.body;
+  try {
+    // Insert the slot data into the database
+    db.query('INSERT INTO slots (doc_id, slot_date, slot_time,slot_occupied) VALUES (?, ?, ?,0)', [doctorId, slotDate, slotTime]);
+    res.status(200).send('Slot added successfully');
+  } catch (error) {
+    console.error('Error adding slot:', error);
+    res.status(500).send('Error adding slot. Please try again.');
+  }
+});
 
 
+// Endpoint to fetch slots for a specific doctor with timestamp filter
+app.get('/api/F_slots/:docId', (req, res) => {
+    const { docId } = req.params;
+    const { timestamp } = req.query; // Get the timestamp from the query parameters
+
+    // Query to fetch slots for the specified doctor with timestamp filter
+    const fetchSlotsQuery = 'SELECT * FROM slots WHERE doc_id = ? AND CONCAT(slot_date, " ", slot_time) >= ?';
+
+    // Execute the query
+    db.query(fetchSlotsQuery, [docId, timestamp], (error, results) => {
+        if (error) {
+            console.error('Error fetching slots:', error);
+            res.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+        res.status(200).json(results);
+    });
+});
+
+// Endpoint to delete expired slots
+app.delete('/api/delete_expired_slots', (req, res) => {
+    const { timestamp } = req.query; // Get the timestamp from the query parameters
+
+    // Query to delete expired slots
+    const deleteExpiredSlotsQuery = 'DELETE FROM slots WHERE CONCAT(slot_date, " ", slot_time) < ?';
+
+    // Execute the query
+    db.query(deleteExpiredSlotsQuery, [timestamp], (error, results) => {
+        if (error) {
+            console.error('Error deleting expired slots:', error);
+            res.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+        res.status(200).json({ message: 'Expired slots deleted successfully' });
+    });
+});
+//delete slots api
+app.delete('/api/d_slots/:slotId', (req, res) => {
+    const slotId = req.params.slotId;
+
+    // Query to delete the slot from the database
+    const deleteSlotQuery = 'DELETE FROM slots WHERE slot_id = ?';
+
+    // Execute the query
+    db.query(deleteSlotQuery, [slotId], (error, results) => {
+        if (error) {
+            console.error('Error deleting slot:', error);
+            res.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+        // Return success message if the slot was deleted successfully
+        res.status(200).json({ message: 'Slot deleted successfully' });
+    });
+});
 
 
 

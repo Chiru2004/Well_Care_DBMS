@@ -8,8 +8,11 @@ import Confirmappointment from './pages/APPOINTMENT/confirmappointment.js';
 import AppointmentDetailsPage from './pages/APPOINTMENT/appointment_details.js';
 import AddDoctorForm from './Admin_pages/Add_doctor/adddoctor.js';
 import ManageDoctorsPage from './Admin_pages/Manage_doctors/managedoctors.js';
+import AddSlotForm from './Admin_pages/Update_slots/Update_slots.js';
+import DeleteSlotForm from './Admin_pages/Delete_slots/Delete_slots.js'
 import './App.css';
 import Home from './pages/Home/home';
+
 function App() {
   return (
     <div className="App">
@@ -25,6 +28,8 @@ function App() {
     <Route path='/appointmentdetails' element={<AppointmentDetailsPage/>}/>
     <Route path='/addadoctor' element={<AddDoctorForm/>}/>
     <Route path='/managedoctors' element={<ManageDoctorsPage/>}/>
+    <Route path='/addslots' element={<AddSlotForm/>}></Route>
+    <Route path='/deleteslots' element={<DeleteSlotForm/>}></Route>
     </Routes>
     </Router>
     </div>

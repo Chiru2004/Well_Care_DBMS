@@ -69,6 +69,7 @@ const SlotsDisplayPage = () => {
         user,
         slotDate: selectedDate,
         slotTime:slot.slot_time,
+        slotId:slot.slot_id,
       },
     });
   };

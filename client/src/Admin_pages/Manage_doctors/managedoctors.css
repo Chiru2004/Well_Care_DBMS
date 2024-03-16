@@ -47,4 +47,8 @@
     background-color: #ff7875;
   }
   
-  
+  .managedoctorsbutton{
+    display:flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+  }

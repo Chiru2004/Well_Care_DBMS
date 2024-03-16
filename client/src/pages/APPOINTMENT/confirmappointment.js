@@ -6,7 +6,7 @@ import './confirmappointment.css'; // Import CSS file for styling
 const ConfirmAppointmentPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { doctor, user, slotDate, slotTime } = location.state;
+  const { doctor, user, slotDate, slotTime,slotId} = location.state;
   const [bookingError, setBookingError] = useState('');
 
   const handleConfirmAppointment = async () => {
@@ -17,6 +17,7 @@ const ConfirmAppointmentPage = () => {
         doctorId: doctor.doc_id,
         appointmentTime: slotTime,
         appointmentDate: slotDate,
+        slotId:slotId,
       });
       // If the appointment is confirmed successfully, redirect to a success page
       navigate('/appointmentdetails', {
