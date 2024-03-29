@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../../components/navbar';
 import './home.css';
 
 const Home = () => {
@@ -25,6 +24,27 @@ const Home = () => {
     fetchUserData();
   }, [navigate]);
 
+  const handleLogout = async () => {
+    try {
+      await axios.get('http://localhost:3001/api/logout', { withCredentials: true });
+      navigate('/login');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
+
+  const handleViewAppointments = () => {
+    navigate('/upcoming_appointments', { state: { user } });
+  };
+
+  const handleViewHistory = () => {
+    navigate('/medical_history', { state: { user } });
+  };
+  const handlebookAppointments=()=>{
+          
+          navigate('/book_appointment');
+  }
+
   // Redirect to login page if user is not logged in
   if (!user) {
     return (
@@ -35,11 +55,23 @@ const Home = () => {
   }
 
   return (
-    <div className="home-container">
-      <Navbar />
-      <h1 className="website-name">Well Care!</h1>
-      <p className="tagline">We got you covered!</p>
-    </div>
+    <div className="landing-page">
+          <div className="user_home_left-side">
+          </div>
+          <div className="right-side">
+          <h1>WELL CARE!</h1>
+          <nav>
+        <ul>
+        <center>
+        <button className="button" onClick={handlebookAppointments}>Book an Appointments</button>
+        <button className="button" onClick={handleViewAppointments}>View Upcoming Appointments</button>
+        <button className="button" onClick={handleViewHistory}>View Medical History</button>
+        <button className="button" onClick={handleLogout}>Logout</button>
+        </center>
+        </ul>
+          </nav>
+          </div>
+        </div>
   );
 };
 
