@@ -61,6 +61,8 @@ const SlotList = () => {
           </div>
         ))}
       </div>
+      <button onClick={deleteExpiredSlots}>Delete Expired Slots</button>
+
     </div>
   );
 };

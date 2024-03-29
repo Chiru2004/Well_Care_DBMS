@@ -1,9 +1,8 @@
-
-import React, { useState, } from 'react';
+import React, { useState } from 'react';
 import * as Yup from 'yup';
 import axios from 'axios';
 import './register_user.css';
-import {useNavigate}  from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
@@ -19,8 +18,9 @@ const RegisterForm = () => {
   });
   const [errors, setErrors] = useState({});
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(''); 
-const navigate=useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -51,21 +51,18 @@ const navigate=useNavigate();
       // If validation passes, submit form data
       const response = await axios.post(' http://localhost:3001/api/register', formData);
 
-            if (response.status === 201) {
-                setRegistrationSuccess(true);
-                navigate('/login');
-                
-            } 
-            
-            else  {
-                console.error('Failed to register');
-            }
+      if (response.status === 201) {
+        setRegistrationSuccess(true);
+        navigate('/login');
+
+      } else {
+        console.error('Failed to register');
+      }
     } catch (error) {
       if (error.response && error.response.status === 400 && error.response.data.message) {
         setErrorMessage(error.response.data.message);
-        console.log(errorMessage); // This might not log the updated errorMessage immediately due to closure behavior
       }
-      
+
       if (error.name === 'ValidationError') {
         // Update errors state with Yup validation errors
         const yupErrors = {};
@@ -80,12 +77,15 @@ const navigate=useNavigate();
   };
 
   return (
-    <div className="container">
+    <div className="landing-page">
+    <div className="left-side">
+    
+    </div>
+    <div className="right-side">
       <h1 className="title">Register Yourself..!</h1>
       {registrationSuccess && <p className="success-message">Registration successful!</p>}
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="username" className="label">Username:</label>
           <input
             placeholder='Enter username'
             id="username"
@@ -98,7 +98,6 @@ const navigate=useNavigate();
           {errors.username && <div className="error">{errors.username}</div>}
         </div>
         <div className="form-group">
-          <label htmlFor="email" className="label">Email:</label>
           <input
             placeholder='Enter email'
             id="email"
@@ -113,7 +112,6 @@ const navigate=useNavigate();
         </div>
 
         <div className="form-group">
-          <label htmlFor="password" className="label">Password:</label>
           <input
             placeholder='Enter password'
             id="password"
@@ -126,7 +124,6 @@ const navigate=useNavigate();
           {errors.password && <div className="error">{errors.password}</div>}
         </div>
         <div className="form-group">
-          <label htmlFor="age" className="label">Age:</label>
           <input
             placeholder='Enter age'
             id="age"
@@ -139,7 +136,6 @@ const navigate=useNavigate();
           {errors.age && <div className="error">{errors.age}</div>}
         </div>
         <div className="form-group">
-          <label htmlFor="phoneNumber" className="label">Phone Number:</label>
           <input
             placeholder='Enter phone number'
             id="phoneNumber"
@@ -152,7 +148,6 @@ const navigate=useNavigate();
           {errors.phoneNumber && <div className="error">{errors.phoneNumber}</div>}
         </div>
         <div className="form-group">
-          <label htmlFor="bloodgroup" className="label">Blood Group:</label>
           <input
             placeholder='Enter blood group'
             id="bloodgroup"
@@ -166,7 +161,6 @@ const navigate=useNavigate();
         </div>
 
         <div className="form-group">
-          <label htmlFor="gender" className="label">Gender:</label>
           <input
             placeholder='Enter gender (male/female)'
             id="gender"
@@ -180,7 +174,6 @@ const navigate=useNavigate();
         </div>
 
         <div className="form-group">
-          <label htmlFor="aadharNo" className="label">Aadhar No:</label>
           <input
             placeholder='Enter Aadhar number'
             id="aadharNo"
@@ -194,7 +187,6 @@ const navigate=useNavigate();
         </div>
 
         <div className="form-group">
-          <label htmlFor="address" className="label">Address:</label>
           <input
             placeholder='Enter address'
             id="address"
@@ -209,6 +201,7 @@ const navigate=useNavigate();
 
         <button type="submit" className="btn">Register</button>
       </form>
+      </div>
     </div>
   );
 };

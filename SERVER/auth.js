@@ -213,8 +213,15 @@ app.post('/api/confirmappointment', (req, res) => {
                 console.error('Error updating slots:', error);
                 return res.status(500).json({ message: "Internal server error" });
             }
-            res.status(200).json({ message: "Appointment confirmed successfully" });
         });
+        db.query('INSERT INTO logs(p_id,d_id,log_time,log_date,a_fulfilled) values (?,?,?,?,?)',[patientId, doctorId, appointmentTime, appointmentDate,'no'],(error,results)=>{
+            if(error){
+                console.error('Error updating logs:', error);
+                return res.status(500).json({ message: "Internal server error" });
+            }
+        });
+            res.status(200).json({ message: "Appointment confirmed successfully" });
+       
     });
 });
 
@@ -247,7 +254,14 @@ app.post('/api/adddoctors', (req, res) => {
   app.delete('/api/deletedoctors/:id', (req, res) => {
     const doctorId = req.params.id;
     const query = 'DELETE FROM doctor WHERE doc_id = ?';
+    const q2='DELETE FROM logs WHERE log_id IN ( SELECT log_id  FROM (SELECT log_id FROM logs   WHERE d_id = ? ) AS subquery)';
     db.query(query, [doctorId], (err, results) => {
+        db.query(q2,[doctorId], (err, results) => {if (err) {
+            console.error('Error removing logs:', err);
+            res.status(500).json({ message: 'Internal server error' });
+            return;
+          }
+        });
       if (err) {
         console.error('Error removing doctor:', err);
         res.status(500).json({ message: 'Internal server error' });
@@ -328,6 +342,155 @@ app.delete('/api/d_slots/:slotId', (req, res) => {
 });
 
 
+app.get('/api/fetchlogs/:doctorId', async (req, res) => {
+    const { doctorId } = req.params;
+
+    try {
+        // Get current timestamp
+        const currentTimestamp = new Date().toISOString().split('.')[0];
+        
+        // Fetch logs for the specified doctor from the database after the current timestamp
+        db.query('SELECT * FROM logs WHERE d_id = ?', [doctorId], (error, results) => {
+            if (error) {
+                console.error('Error fetching logs:', error);
+                res.status(500).json({ message: 'Internal server error' });
+                return;
+            }
+            res.status(200).json(results);
+        });
+    } catch (error) {
+        console.error('Error fetching logs:', error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+});
+
+
+
+
+
+app.get('/api/medicines', (req, res) => {
+    // Query to fetch all medicines from the medicine table
+    const query = 'SELECT * FROM medicine';
+
+    // Execute the query
+    db.query(query, (err, results) => {
+        if (err) {
+            console.error('Error fetching medicines:', err);
+            res.status(500).json({ error: 'Internal server error' });
+            return;
+        }
+        res.json(results);
+    });
+});
+
+app.post('/api/addToPrescription', (req, res) => {
+    const { medicineId, quantity, log} = req.body;
+
+    try {
+        // Insert the medicine into the prescription table
+       db.query('INSERT INTO prescription_table (Patient_id, Doctor_id, Medicine_id, Med_Quant, log_id) VALUES (?, ?, ?, ?, ?)',
+            [log.p_id, log.d_id, medicineId, quantity, log.log_id]);
+
+            try{
+                db.query('UPDATE logs SET a_fulfilled = ? WHERE log_id = ?', ['yes',log.log_id]);
+                console.log("hii");
+            }
+            catch(error)
+            {
+                console.error('Error updating logs', error);
+                res.status(500).json({ error: 'Internal server error' }); 
+            }
+
+        res.status(200).json({ message: 'Medicine added to prescription successfully' });
+    } catch (error) {
+        console.error('Error adding medicine to prescription:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+app.get('/api/uappointments/:patient_id', (req, res) => {
+    const patientId = req.params.patient_id;
+    const currentDate = new Date().toISOString(); // Get current date in YYYY-MM-DD format
+  
+    // SQL query to fetch upcoming appointments for the given patient
+    const sql = `
+    SELECT a.*, d.*
+    FROM appointments a
+    JOIN doctor d ON a.doc_id = d.doc_id
+    WHERE a.patient_id = ?
+    AND CONCAT(a.appointment_date, ' ', a.appointment_time) >= ?
+    ORDER BY a.appointment_date, a.appointment_time;
+  `;
+  
+    // Execute the query
+    db.query(sql, [patientId, currentDate], (error, results) => {
+      if (error) {
+        console.error('Error fetching upcoming appointments:', error);
+        res.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      res.json(results);
+    });
+  });
+
+
+  // Backend API to fetch logs for the given user and include associated doctor details
+// Import necessary modules and initialize your Express app
+
+// Backend API to fetch logs for the given user and include associated doctor details
+app.get('/api/mhistory/:patient_id', async (req, res) => {
+    const { patient_id } = req.params;
+    try {
+      // Perform SQL query to fetch logs and join with doctors table
+      const sql = `
+        SELECT l.*, d.*
+        FROM logs l
+        LEFT JOIN doctor d ON l.d_id = d.doc_id
+        WHERE l.p_id = ? and l.a_fulfilled="yes"
+      `;
+
+      db.query(sql, [patient_id, ], (error, results) => {
+        if (error) {
+          console.error('Error fetching upcoming appointments:', error);
+          res.status(500).json({ error: 'Internal server error' });
+          return;
+        }
+        res.json(results);
+    });
+  } catch(error)
+  {
+    console.error(error);
+    res.json(error);
+  }
+}
+  );
+
+
+  app.get('/api/view_prescription/:log_id', (req, res) => {
+    const { log_id } = req.params;
+  
+    // SQL query to fetch medicines listed in the prescription for the given log_id
+    const sql = `
+      SELECT p.*, m.*
+      FROM prescription_table p
+      JOIN medicine m ON p.Medicine_id = m.Medicine_id
+      WHERE p.log_id = ?
+    `;
+  
+    // Execute the query
+    db.query(sql, [log_id], (error, results) => {
+      if (error) {
+        console.error('Error fetching prescription:', error);
+        res.status(500).json({ error: 'Internal server error' });
+        return;
+      }
+      res.json(results);
+    });
+  });
+  
+  
+  
 
 
            

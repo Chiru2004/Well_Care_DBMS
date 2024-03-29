@@ -46,54 +46,51 @@ const AddDoctorForm = () => {
   });
 
   return (
-    <div className="adddoctorform-container">
-      <h2>Add Doctor</h2>
+    <div className="">
+      <div className="title">
+      <h2>Add Doctor</h2></div>
       <form onSubmit={formik.handleSubmit}>
+        <center>
         <div className="adddoctorform-group">
-          <label htmlFor="docName" className="adddoctorform-label">Doctor Name:</label>
-          <input type="text" id="docName" name="docName" value={formik.values.docName} onChange={formik.handleChange} className="adddoctorform-input" />
+          <input type="text" id="docName" name="docName" placeholder="Doctor Name" value={formik.values.docName} onChange={formik.handleChange} className="adddoctorform-input" />
           {formik.touched.docName && formik.errors.docName ? <div className="adddoctorform-error">{formik.errors.docName}</div> : null}
         </div>
         
         <div className="adddoctorform-group">
-          <label htmlFor="docAge" className="adddoctorform-label">Age:</label>
-          <input type="number" id="docAge" name="docAge" value={formik.values.docAge} onChange={formik.handleChange} className="adddoctorform-input" />
+          <input type="number" id="docAge" name="docAge" placeholder="Doctor Age" value={formik.values.docAge} onChange={formik.handleChange} className="adddoctorform-input" />
           {formik.touched.docAge && formik.errors.docAge ? <div className="adddoctorform-error">{formik.errors.docAge}</div> : null}
         </div>
         
         <div className="adddoctorform-group">
-          <label htmlFor="docQualification" className="adddoctorform-label">Qualification:</label>
-          <input type="text" id="docQualification" name="docQualification" value={formik.values.docQualification} onChange={formik.handleChange} className="adddoctorform-input" />
+          <input type="text" id="docQualification" name="docQualification" placeholder="Qualification" value={formik.values.docQualification} onChange={formik.handleChange} className="adddoctorform-input" />
           {formik.touched.docQualification && formik.errors.docQualification ? <div className="adddoctorform-error">{formik.errors.docQualification}</div> : null}
         </div>
         
         <div className="adddoctorform-group">
-          <label htmlFor="docDept" className="adddoctorform-label">Department:</label>
-          <input type="text" id="docDept" name="docDept" value={formik.values.docDept} onChange={formik.handleChange} className="adddoctorform-input" />
+          <input type="text" id="docDept" name="docDept" placeholder="Department" value={formik.values.docDept} onChange={formik.handleChange} className="adddoctorform-input" />
           {formik.touched.docDept && formik.errors.docDept ? <div className="adddoctorform-error">{formik.errors.docDept}</div> : null}
         </div>
         
         <div className="adddoctorform-group">
-          <label htmlFor="docExperience" className="adddoctorform-label">Experience (in years):</label>
-          <input type="number" id="docExperience" name="docExperience" value={formik.values.docExperience} onChange={formik.handleChange} className="adddoctorform-input" />
+          <input type="number" id="docExperience" name="docExperience" placeholder="Experience" value={formik.values.docExperience} onChange={formik.handleChange} className="adddoctorform-input" />
           {formik.touched.docExperience && formik.errors.docExperience ? <div className="adddoctorform-error">{formik.errors.docExperience}</div> : null}
         </div>
         
         <div className="adddoctorform-group">
-          <label htmlFor="docContact" className="adddoctorform-label">Contact Number:</label>
-          <input type="text" id="docContact" name="docContact" value={formik.values.docContact} onChange={formik.handleChange} className="adddoctorform-input" />
+          <input type="text" id="docContact" name="docContact" placeholder="Contact Number" value={formik.values.docContact} onChange={formik.handleChange} className="adddoctorform-input" />
           {formik.touched.docContact && formik.errors.docContact ? <div className="adddoctorform-error">{formik.errors.docContact}</div> : null}
         </div>
         
         <div className="adddoctorform-group">
-          <label htmlFor="docSpecification" className="adddoctorform-label">Specification:</label>
-          <input type="text" id="docSpecification" name="docSpecification" value={formik.values.docSpecification} onChange={formik.handleChange} className="adddoctorform-input" />
+          <input type="text" id="docSpecification" name="docSpecification" placeholder="Specification" value={formik.values.docSpecification} onChange={formik.handleChange} className="adddoctorform-input" />
           {formik.touched.docSpecification && formik.errors.docSpecification ? <div className="adddoctorform-error">{formik.errors.docSpecification}</div> : null}
         </div>
+        </center>
         
         <button type="submit" className="adddoctorform-submit">Add Doctor</button>
       </form>
       {error && <div className="adddoctorform-error">{error}</div>}
+      
     </div>
   );
 };

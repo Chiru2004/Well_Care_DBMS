@@ -1,10 +1,26 @@
 /* LoginForm.css */
-
+.landing-page {
+  display: flex;
+  height: 100vh;
+}
 .login-form-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+  }
+
+  .left-side {
+    width: 45%; /* changed to 55% */
+  }
+  
+.right-side {
+    width: 55%; /* changed to 45% */
+    display: flex;
+    height: 600px;
+    flex-direction: column;
+    justify-content: center; /* align items vertically center */
+    align-items: center; /* align items horizontally center */
   }
   
   .login-form-wrapper {
@@ -19,20 +35,20 @@
     text-align: center;
     font-size: 28px; /* Increased font size */
     margin-bottom: 30px; /* Increased margin */
+    color: #597a74;
   }
   
   .form-group {
     margin-bottom: 20px; /* Increased margin */
     margin-right: 12px;
-   
   }
   
   .form-control {
-    width: 100%;
-    padding: 10px; /* Increased padding */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 15px; /* Increased font size */
+    width: 400px;
+    padding: 15px; /* Increased padding */
+    font-size: 15px; 
+    border: 3px solid #b8cfcb;
+    border-radius: 5px;/* Increased font size */
   }
   
   .error {
@@ -42,17 +58,19 @@
   }
   
   .login-button {
-    width: 100%;
-    padding: 10px; /* Increased padding */
+    width: 425px;
+    padding: 15px; /* Increased padding */
     border: none;
-    border-radius: 5px;
-    background-color: #3897f0;
+    align-items: center;
+    border-radius: 3px;
+    background-color: #b8cfcb;
     color: #fff;
     font-size: 18px; /* Increased font size */
     cursor: pointer;
+    transition: background-color 0.3s ease;
   }
   
   .login-button:hover {
-    background-color: #3578e5;
+    background-color: #597a74;
   }
   

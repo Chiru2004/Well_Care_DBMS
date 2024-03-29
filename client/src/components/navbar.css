@@ -1,0 +1,29 @@
+/* navbar.css */
+nav {
+     /* Dark background color */
+    padding: 10px 20px; /* Padding for the navbar */
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: right; /* Align links to the right */
+  }
+  
+  nav ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  nav ul li span {
+    color:black; /* White font color */
+    font-size: 18px; /* Font size */
+    font-family: 'Arial', sans-serif; /* Font family */
+    cursor: pointer;
+    transition: color 0.3s ease; /* Smooth color transition */
+  }
+  
+  nav ul li span:hover {
+    color: #ccc; /* Lighter font color on hover */
+  }
+  

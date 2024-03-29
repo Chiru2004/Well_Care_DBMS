@@ -1,58 +1,86 @@
-/* styles.css */
+/* register_user.css */
+
+.register-page {
+  display: flex;
+  height: 100vh;
+}
+
+.right-side {
+  width: 40%; /* changed to 45% */
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+  justify-content: center; /* align items vertically center */
+  align-items: center; /* align items horizontally center */
+}
+
+.left-side {
+  width: 45%; /* changed to 55% */
+}
 
 .container {
-    max-width: 350px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-  
-  .title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 22px;
-    color: #333;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .label {
-    display: block;
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-  }
-  
-  .input {
-    width: calc(100% - 20px);
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .error {
-    color: red;
-    font-size: 12px;
-  }
-  
-  .btn {
-    width: calc(100% - 20px);
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .btn:hover {
-    background-color: #0056b3;
-  }
-  
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  display: fill;
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top:10px;
+  font-size: 20px;
+  color: #597a74;
+}
+
+.success-message {
+  text-align: center;
+  color: green;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  width: 500px;
+  margin-bottom: 20px;
+}
+
+
+.label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  color: #b8cfcb;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  border: 3px solid #b8cfcb;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+}
+
+.btn {
+  width: 100%;
+  padding: 10px;
+  background-color: #b8cfcb;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #597a74;
+}

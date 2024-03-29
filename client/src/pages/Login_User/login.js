@@ -61,8 +61,11 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="login-form-container">
-      <div className="login-form-wrapper">
+    <div className="landing-page">
+      <div className="left-side">
+         
+      </div>
+      <div className="right-side">
         <h1 className="login-form-header">Login to Your Account</h1>
         <form onSubmit={handleSubmit} className='form-elements'>
           <div className="form-group">
@@ -90,11 +93,13 @@ const LoginForm = () => {
             {errors.password && <div className="error">{errors.password}</div>}
           </div>
           {loginError && <div className="error">{loginError}</div>}
+          <div className="form-group">
           <button type="submit" className="login-button">
             Login
           </button>
+          </div>
         </form>
-      </div>
+    </div>
     </div>
   );
 };

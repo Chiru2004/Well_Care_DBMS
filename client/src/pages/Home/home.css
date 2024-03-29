@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Mouse+Memoirs&display=swap');
+
+.home-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../../../home.jpg');
+    background-size: cover;
+    background-attachment: scroll;
+    overflow-y: auto;
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    text-align: center;
+}
+
+.hero-section {
+    color: #fff;
+    margin-top: 20px; /* Adjust the margin-top as needed */
+}
+
+.login-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.website-name {
+    font-family: "Mouse Memoirs", sans-serif;
+    font-size: 160px;
+    font-weight: 400;
+    line-height: 183.2px;
+    text-align: left;
+    position: absolute;
+    top: 20px; /* Adjust the top position as needed */
+    left: 20px; /* Adjust the left position as needed */
+    color: #000; /* Adjust the color as needed */
+}
+
+.tagline {
+    font-family: "Inter", sans-serif;
+    font-size: 24px; /* Decreased font size */
+    font-weight: 400;
+    line-height: 30px; /* Adjusted line height */
+    text-align: left;
+    position: absolute;
+    top: 280px; /* Increased top position to create a gap */
+    left: 20px; /* Adjusted left position */
+    color: #000; /* Adjust the color as needed */
+}

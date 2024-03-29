@@ -1,0 +1,35 @@
+.medical-history-container {
+    width: 75%; /* Adjust width as needed */
+    margin: 0 auto;
+  }
+  
+  .medical-history-entry {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .log-date,
+  .log-time,
+  .doctor-name,
+  .doctor-department {
+    margin: 8px 0; /* Increased spacing */
+    font-size: 16px; /* Larger font size */
+  }
+  
+  .view-prescription-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .view-prescription-button:hover {
+    background-color: #0056b3;
+  }
+  

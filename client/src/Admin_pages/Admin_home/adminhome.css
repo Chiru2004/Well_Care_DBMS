@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Mouse+Memoirs&display=swap');
+
+.landing-page {
+    display: flex;
+    height: 100vh;
+}
+  
+.adminhome_left-side {
+    width: 45%; /* Changed to 50% */
+    background-image: url('./Adminpage.png');
+    background-repeat: no-repeat;
+    background-size:80cqb;
+    /* Removed background-size: contain; */
+}
+  
+.right-side {
+    width: 60%; /* Changed to 50% */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-side h1{
+    font-family: "Mouse Memoirs", sans-serif;
+    font-size: 100px;
+    font-weight: 300;
+    line-height: 90.2px;
+}
+  
+.button {
+    margin: 10px; /* Reduced margin */
+    width: 60%; /* Adjusted button width */
+    padding: 20px;
+    font-size: 20px;
+    font-family: Arial, sans-serif;
+    color: black;
+    border: none;
+    background-color: #b8cfcb;
+    cursor: pointer;
+    border-radius: 20px;
+}
+  
+.button:hover {
+    background-color: #9ec8c1;
+}
+  
+img {
+    width: 110%; /* Extend image width */
+    height: 100%;
+    object-fit: cover;
+}
+

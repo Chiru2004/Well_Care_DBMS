@@ -1,0 +1,73 @@
+/* Admin_login.css */
+
+.register-page {
+  display: flex;
+  height: 100vh;
+}
+
+.right-side {
+  width: 55%; /* changed to 45% */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* align items vertically center */
+  align-items: center; /* align items horizontally center */
+}
+
+.left-side {
+  width: 45%; /* changed to 55% */
+}
+
+.admin-login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Center content vertically */
+    height: 80vh; /* Decreased height to move everything up */
+    margin-top: 5vh; /* Added margin-top to move everything up */
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #597a74;
+  }
+  
+  .admin-login-form h2 {
+    text-align: center;
+  }
+  
+
+  .admin-login-form input {
+    width: 500px; /* Set input fields to 100% width minus margin-right */
+    padding: 15px; /* Decreased padding */
+    margin-bottom: 20px;
+    margin-right: 12px;
+    border: 3px solid #b8cfcb;
+    border-radius: 5px;
+  }
+ 
+  
+  .admin-login-form button {
+    width: 525px;
+    padding: 15px;
+    background-color: #b8cfcb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .admin-login-form button:hover {
+    background-color: #597a74;
+  }
+  
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
+
+  

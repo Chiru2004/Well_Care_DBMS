@@ -39,8 +39,15 @@ const ConfirmAppointmentPage = () => {
       }
     }
   };
-
+  if (!user) {
+    return (
+      <div>
+    
+    <button onClick={()=>navigate("/")}>Login to continue</button>
+    </div>);// or any loading indicator you prefer
+  }
   return (
+    <div>{user?(
     <div className="confirm-container">
       <h2>Confirm Appointment</h2>
       <div className="details-container">
@@ -67,7 +74,15 @@ const ConfirmAppointmentPage = () => {
       <button className="confirm-button" onClick={handleConfirmAppointment}>Confirm Appointment</button>
       <button className="confirm-button" onClick={() => navigate('/book_appointment')} > Choose Another Slot</button>
       </div>
+    </div>) : (  
+      <div>
+    
+    <button onClick={()=>navigate("/")}>Login to continue</button>
     </div>
+
+    )}
+    </div>
+    
   );
 };
 

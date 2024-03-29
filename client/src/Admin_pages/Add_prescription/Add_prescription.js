@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './managedoctors.css'; // Import CSS file for styling
+ // Import CSS file for styling
 import {useNavigate} from 'react-router-dom';
 
 const ManageDoctorsPage = () => {
@@ -8,6 +8,7 @@ const ManageDoctorsPage = () => {
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 const navigate=useNavigate();
+
   useEffect(() => {
     fetchDoctors();
   }, []);
@@ -22,15 +23,7 @@ const navigate=useNavigate();
     }
   };
 
-  const handleRemoveDoctor = async (doctorId) => {
-    try {
-      await axios.delete(`http://localhost:3001/api/deletedoctors/${doctorId}`);
-      setDoctors(doctors.filter((doctor) => doctor.doc_id !== doctorId));
-      setFilteredDoctors(filteredDoctors.filter((doctor) => doctor.doc_id !== doctorId));
-    } catch (error) {
-      console.error('Error removing doctor:', error);
-    }
-  };
+  
 
   const handleSearch = (e) => {
     const searchTerm = e.target.value;
@@ -40,22 +33,15 @@ const navigate=useNavigate();
     );
     setFilteredDoctors(filtered);
   };
-  const updateslots=(doctor)=>{
-navigate('/addslots',{ state:{ doctor: doctor } })
-  }
-  const deleteslots=(doctor)=>{
-    navigate('/deleteslots',{state:{doctor: doctor}})
-  }
-  const handleAddDoctor = () => {
-    navigate('/addadoctor');
-  };
 
-  
+  const fetchslots=(doctor)=>{
+    navigate('/chooselog',{state:{doctor:doctor}});
+ }
 
   return (
     <div className="managedoctors-container">
       
-      <h2>Manage Doctors</h2>
+      <h2>Select doctor whose patient's prescription is to be updated</h2>
       <div className='managedoctors-a'>
       <input
         type="text"
@@ -64,8 +50,7 @@ navigate('/addslots',{ state:{ doctor: doctor } })
         onChange={handleSearch}
         className="managedoctors-search"
       />
-       <button className="managedoctors-add" onClick={handleAddDoctor}>Add Doctor</button>
-
+       
       </div>
       <div className="managedoctors-grid">
         {filteredDoctors.map((doctor) => (
@@ -80,11 +65,9 @@ navigate('/addslots',{ state:{ doctor: doctor } })
               <p>Specification: {doctor.doc_specification}</p>
             </div>
             <div className='managedoctorsbutton'>
-            <button className="managedoctors-remove" onClick={() => handleRemoveDoctor(doctor.doc_id)}>
-              Remove Doctor
-            </button>
-            <button className='managedoctors-remove' onClick={()=>updateslots(doctor)}>Update slots</button>
-            <button className='managedoctors-remove' onClick={()=>deleteslots(doctor)}>Delete slots</button>
+            <button className='managedoctors-remove' onClick={()=>fetchslots(doctor)}>Choose slot</button>
+
+            
             </div>
           </div>
         ))}
