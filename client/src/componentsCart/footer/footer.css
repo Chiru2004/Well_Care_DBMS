@@ -1,0 +1,18 @@
+.footer {
+    background-color: #003580;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Adjust height as needed */
+    width: 100%;
+  }
+  
+  .footer .content {
+    max-width: 1024px; /* Adjust width as needed */
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+  }
+  

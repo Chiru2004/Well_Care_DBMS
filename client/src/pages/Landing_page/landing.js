@@ -25,9 +25,9 @@ const navigate=useNavigate();
           </div>
           <div className="right-side">
             <h1>WELL CARE!</h1>
-            <button className="button" onClick={register}>Register User</button>
-            <button className="button" onClick={login}>Login User</button>
-            <button className="button" onClick={adminlogin}>Login Admin</button>
+            <button className="cbutton" onClick={register}>Register User</button>
+            <button className="cbutton" onClick={login}>Login User</button>
+            <button className="cbutton" onClick={adminlogin}>Login Admin</button>
           </div>
         </div>
       );

@@ -28,7 +28,7 @@
     line-height: 90.2px;
 }
   
-.button {
+.cbutton {
     margin: 10px; /* Reduced margin */
     width: 60%; /* Adjusted button width */
     padding: 20px;
@@ -41,7 +41,7 @@
     border-radius: 20px;
 }
   
-.button:hover {
+.cbutton:hover {
     background-color: #9ec8c1;
 }
   

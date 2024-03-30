@@ -47,13 +47,16 @@
   }
   
   .adddoctorform-submit {
-    align : center;
-    width: 250px;
+   width: 430px;
+   margin-left:20px;
+   align : center;
+
     padding: 10px;
     background-color: #b8cfcb;
     color: white;
     border: none;
     border-radius: 5px;
+    
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;

@@ -24,7 +24,7 @@ const navigate=useNavigate();
       }
 
       const Manageinventory=()=>{
-        navigate('/');
+        navigate('/manageinventory');
 
       }
 
@@ -37,11 +37,11 @@ const navigate=useNavigate();
           </div>
           <div className="right-side">
             <h1>WELL CARE!</h1>
-            <button className="button" onClick={Managedoctors}>Manage Doctors</button>
-            <button className="button" onClick={Manageslots}>Manage Slots</button>
-            <button className="button" onClick={Addprescription}>Add Prescription</button>
-            <button className="button" onClick={Adddoctors}>Add Doctors</button>
-            <button className="button" onClick={Manageinventory}>Manage Inventory</button>
+            <button className="cbutton" onClick={Managedoctors}>Manage Doctors</button>
+            <button className="cbutton" onClick={Manageslots}>Manage Slots</button>
+            <button className="cbutton" onClick={Addprescription}>Add Prescription</button>
+            <button className="cbutton" onClick={Adddoctors}>Add Doctors</button>
+            <button className="cbutton" onClick={Manageinventory}>Manage Inventory</button>
           </div>
         </div>
       );

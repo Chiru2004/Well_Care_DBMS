@@ -1,0 +1,112 @@
+/* searchResults.css */
+.medicine-box {
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .medicine-details span {
+    margin-right: 10px;
+  }
+  
+  .button-container {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .add-to-cart-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .add-to-cart-button:hover {
+    background-color: #0056b3;
+  }
+  /* searchResults.css */
+.headerSearch {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; /* Add margin to create space between search box and search results */
+}
+
+.headerSearchItem {
+  flex: 1; /* Use flex property to make the search input fill the available space */
+}
+.button {
+  padding: 10px 20px; /* Increase padding for better appearance */
+  height: max-content;
+  margin-left: 10px; /* Add margin between the search input and the search button */
+  border-radius: 5px; /* Add rounded corners */
+  background-color: #007bff; /* Add background color */
+  color: white; /* Set text color to white for better visibility */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Add pointer cursor for better interaction */
+}
+
+.button:hover {
+  background-color: #0056b3; /* Darken background color on hover */
+}
+
+.add-to-cart-button {
+  background-color: teal; /* Change color to teal */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px; /* Add margin to separate from the results */
+  display: block; /* Make it a block element to center */
+  margin: 0 auto; /* Center horizontally */
+}
+
+.add-to-cart-button:hover {
+  background-color: mediumaquamarine; /* Change color on hover to yellow */
+}
+.proceed-to-order-button {
+  background-color: teal; /* Set background color to teal */
+  color: white; /* Set text color to white */
+  padding: 10px 20px; /* Add padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Add border radius */
+  cursor: pointer; /* Add pointer cursor */
+  margin-top: 20px; /* Add margin to separate from the results */
+  display: block; /* Make it a block element */
+  margin: 0 auto; /* Center horizontally */
+}
+
+.proceed-to-order-button:hover {
+  background-color: mediumaquamarine; /* Change background color on hover to yellow */
+}
+
+.button-container {
+  display: flex;
+  align-items: center;
+}
+
+.input-field {
+  width: 60px; /* Adjust width as needed */
+  height: 30px; /* Adjust height as needed */
+  border-radius: 5px; /* Add rounded corners */
+  margin-right: 10px; /* Add spacing between input field and button */
+  padding: 5px; /* Add padding */
+}
+
+.add-to-cart-button {
+  background-color: teal; /* Set background color to teal */
+  color: white; /* Set text color to white */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Add rounded corners */
+  cursor: pointer; /* Add pointer cursor */
+  padding: 8px 15px; /* Add padding */
+}
+
+.add-to-cart-button:hover {
+  background-color: mediumaquamarine; /* Change background color on hover to yellow */
+}

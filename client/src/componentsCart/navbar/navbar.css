@@ -1,0 +1,26 @@
+.navcontainer{
+  display : flex;
+  justify-content: space-between;
+}
+.navButton {
+  margin:20px;
+    border: none;
+    color: white; /* Make the words white */
+    background-color: #007bff;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 20px;
+    transition: background-color 0.3s; /* Add transition for smooth hover effect */
+  }
+  
+  .navButton:hover {
+    background-color: rgb(22, 223, 223); /* Change background color on hover */
+  }
+  
+  /* Specific styles for the Profile and Cart buttons */
+  .navButton:contains("Profile"),
+  .navButton:contains("Cart") {
+    color: white;
+    background-color: white; /* Make the words white */
+  }
+  

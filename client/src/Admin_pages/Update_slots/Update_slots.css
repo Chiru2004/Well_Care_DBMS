@@ -34,14 +34,33 @@
   
   /* Button styles */
   .slots-addition-button {
-    padding: 12px 20px;
-    font-size: 16px;
+    display: block; /* Ensure buttons take full width */
+    width: 100%;
+    margin-top: 15px; /* Add margin between buttons */
+    padding: 10px;
+    background-color: #b8cfcb; /* Red color for remove button */
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     cursor: pointer;
-    background-color: #4CAF50;
-    color : WHite;
+    transition: background-color 0.3s ease;
   }
   
+  .slots-addition-add-button{
+    display: block; /* Ensure buttons take full width */
+    width: 100%;
+    margin-top: 15px; /* Add margin between buttons */
+    padding: 10px;
+    background-color: #b8cfcb; /* Red color for remove button */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .slots-addition-add-button:hover {
+    background-color: #9ec8c1; /* Darker red on hover */
+  }
 
   

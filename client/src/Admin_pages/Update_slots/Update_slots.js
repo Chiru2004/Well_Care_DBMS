@@ -55,7 +55,7 @@ const AddSlotForm = () => {
           <label htmlFor="slotTime">Time : </label>
           <input type="time" id="slotTime" name="slotTime" value={formData.slotTime} onChange={handleChange} />
         </div>
-        <button type="submit">Add Slot</button>
+        <button className="slots-addition-add-button" type="submit">Add Slot</button>
       </form>
       </div>
       {error && <p className="error-message">{error}</p>}

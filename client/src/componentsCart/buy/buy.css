@@ -1,0 +1,49 @@
+.buy-page-container {
+    margin: 20px;
+  }
+  
+  .buy-page-content {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .info {
+    margin-bottom: 10px;
+  }
+  
+  .cart-items-list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .cart-item {
+    margin-bottom: 10px;
+  }
+  
+  .proceed-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .proceed-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .error-msg {
+    color: red;
+  }
+  
+  .order-detail {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f3f3f3;
+  }
+  

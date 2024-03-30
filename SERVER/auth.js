@@ -7,9 +7,13 @@ import cookieParser from 'cookie-parser';
 import  {createTokens,validateToken} from './jwt.js';
 const app = express();
 app.use(express.json());
-app.use(cors({ origin: 'http://localhost:3000',methods:["POST","GET","DELETE"],credentials: true })); // Allow requests from localhost:3000
+app.use(cors({ origin: 'http://localhost:3000',methods:["POST","GET","DELETE","PUT"], credentials: true })); // Allow requests from localhost:3000
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Methods', 'PUT');
+    next();});
+
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -488,9 +492,325 @@ app.get('/api/mhistory/:patient_id', async (req, res) => {
       res.json(results);
     });
   });
+
+
+////yashas code
+
+
+
+
+app.get('/api/search', (req, res) => {
+    const { query } = req.query;
+    const queryString = `SELECT * FROM Medicine WHERE LOWER(Med_name) LIKE LOWER('%${query}%');`;
+   db.query(queryString, (err, rows) => {
+      if (err) {
+        console.error('Error executing MySQL query: ', err);
+        res.status(500).json({ error: 'Error executing MySQL query' });
+        return;
+      }
+      console.log(rows);
+      console.log("Hi");
+      res.json(rows);
+    });
+  });
+  
+  app.post('/api/add-to-cart', (req, res) => {
+    const { Patient_id, Medicine_id, Med_quant, Unit_price, Total_price } = req.body;
+  
+    // Generate timestamp for added time and update time
+    const added_time = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    const update_time = added_time;
+  
+    // Check if the entry already exists
+    const selectQuery = `SELECT * FROM Cart WHERE Patient_id = ? AND Medicine_id = ?`;
+   db.query(selectQuery, [Patient_id, Medicine_id], (err, results) => {
+      if (err) {
+        console.error('Error executing MySQL query: ', err);
+        res.status(500).json({ error: 'Error checking for existing entry in cart' });
+        return;
+      }
+  
+      if (results.length > 0) {
+        // Entry already exists, update the Med_quant
+        const existingQuant = results[0].Med_quant;
+        const updatedQuant = existingQuant + Med_quant;
+  
+        const updateQuery = `UPDATE Cart SET Med_quant = ?, Total_price = ? WHERE Patient_id = ? AND Medicine_id = ?`;
+       db.query(updateQuery, [updatedQuant, updatedQuant * Unit_price, Patient_id, Medicine_id], (err, result) => {
+          if (err) {
+            console.error('Error executing MySQL query: ', err);
+            res.status(500).json({ error: 'Error updating existing entry in cart' });
+            return;
+          }
+          console.log('Item quantity updated in cart');
+          res.json({ message: 'Item quantity updated in cart successfully' });
+        });
+      } else {
+        // Entry does not exist, insert a new row
+        const insertQuery = `INSERT INTO Cart (Patient_id, Medicine_id, Med_quant, Unit_price, Total_price, Added_time, Update_time) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+       db.query(insertQuery, [Patient_id, Medicine_id, Med_quant, Unit_price, Total_price, added_time, update_time], (err, result) => {
+          if (err) {
+            console.error('Error executing MySQL query: ', err);
+            res.status(500).json({ error: 'Error adding new item to cart' });
+            return;
+          }
+          console.log('New item added to cart');
+          res.json({ message: 'New item added to cart successfully' });
+        });
+      }
+    });
+  });
+  
+  app.get('/api/cart/order', (req, res) => {
+    const selectQuery = 'SELECT c.*, m.Med_name FROM Cart c INNER JOIN Medicine m ON c.Medicine_id = m.Medicine_id';
+   db.query(selectQuery, (err, rows) => {
+      if (err) {
+        console.error('Error executing MySQL query: ', err);
+        res.status(500).json({ error: 'Error fetching cart/order data' });
+        return;
+      }
+      res.json(rows);
+    });
+  });
+  
+  app.delete('/api/cart/order/:patientId/:medicineId', (req, res) => {
+    const { patientId, medicineId } = req.params;
+  
+    // Construct the DELETE query to remove the item from the cart
+    const deleteQuery = `DELETE FROM cart WHERE Patient_id = ? AND Medicine_id = ?`;
+  
+    // Execute the query
+   db.query(deleteQuery, [patientId, medicineId], (err, result) => {
+      if (err) {
+        console.error('Error executing MySQL query:', err);
+        res.status(500).json({ error: 'Error removing item from cart' });
+        return;
+      }
+  
+      // Check if any rows were affected (item removed)
+      if (result.affectedRows === 0) {
+        // If no rows were affected, the item may not have been found in the cart
+        res.status(404).json({ error: 'Item not found in cart' });
+        return;
+      }
+  
+      // If the item was successfully removed, send a success response
+      res.status(200).json({ message: 'Item removed from cart successfully' });
+    });
+  });
+  
+  // GET endpoint to fetch patient details by ID
+  app.get('/api/patient/:id', (req, res) => {
+    const patientId = req.params.id;
+    const selectQuery = 'SELECT * FROM patient WHERE idPatient = ?';
+   db.query(selectQuery, [patientId], (err, rows) => {
+      if (err) {
+        console.error('Error executing MySQL query: ', err);
+        res.status(500).json({ error: 'Error fetching patient details' });
+        return;
+      }
+      if (rows.length === 0) {
+        res.status(404).json({ error: 'Patient not found' });
+        return;
+      }
+      const patientDetails = rows[0];
+      res.json(patientDetails);
+    });
+  });
+  
+  // POST endpoint to place an order
+  app.post('/api/orders', async (req, res) => {
+    try {
+      const { orderId, patientId, orderDate, totalAmount, address } = req.body;
+      const insertOrderQuery = 'INSERT INTO orders (Order_id, Patient_id, Order_Date, Order_Status, Amount, Del_Address) VALUES (?, ?, ?, ?, ?, ?)';
+     db.query(insertOrderQuery, [orderId, patientId, orderDate, 'Pending', totalAmount, address], (error, results) => {
+        if (error) {
+          console.error('Error inserting order:', error);
+          res.status(500).json({ error: 'Error placing order' });
+        } else {
+          console.log('Order inserted successfully');
+          const orderId = results.insertId;
+          res.status(201).json({
+            orderId: orderId,
+            patientId: patientId,
+            orderDate: orderDate,
+            orderStatus: 'Pending',
+            amount: totalAmount,
+            deliveryAddress: address,
+          });
+        }
+      });
+    } catch (error) {
+      console.error('Error placing order:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
+  app.post('/api/order-items', (req, res) => {
+    const { orderId, medicineId, quantity, totalPrice } = req.body;
+  
+    // Check if the order details already exist
+    const selectQuery = `SELECT * FROM order_details WHERE Order_id = ? AND Medicine_id = ?`;
+   db.query(selectQuery, [orderId, medicineId], (err, results) => {
+      if (err) {
+        console.error('Error executing MySQL query:', err);
+        res.status(500).json({ error: 'Error adding order details' });
+        return;
+      }
+  
+      if (results.length > 0) {
+        // Order details already exist, update the quantity and subtotal
+        const updateQuery = `UPDATE order_details SET Med_Quant = ?, Subtotal = ? WHERE Order_id = ? AND Medicine_id = ?`;
+       db.query(updateQuery, [quantity, totalPrice, orderId, medicineId], (err, result) => {
+          if (err) {
+            console.error('Error executing MySQL query:', err);
+            res.status(500).json({ error: 'Error updating order details' });
+            return;
+          }
+          res.status(200).json({ message: 'Order details updated successfully' });
+        });
+      } else {
+        // Order details do not exist, insert a new row
+        const insertQuery = `INSERT INTO order_details (Order_id, Medicine_id, Med_Quant, Subtotal) VALUES (?, ?, ?, ?)`;
+       db.query(insertQuery, [orderId, medicineId, quantity, totalPrice], (err, result) => {
+          if (err) {
+            console.error('Error executing MySQL query:', err);
+            res.status(500).json({ error: 'Error adding order details' });
+            return;
+          }
+          res.status(201).json({ message: 'Order details added successfully' });
+        });
+      }
+    });
+  });
   
   
+  app.get('/api/orders/lastOrderId', (req, res) => {
+    const selectQuery = 'SELECT Order_id FROM order_details ORDER BY Order_id DESC LIMIT 1';
+   db.query(selectQuery, (err, rows) => {
+      if (err) {
+        console.error('Error executing MySQL query: ', err);
+        res.status(500).json({ error: 'Error fetching last order ID' });
+        return;
+      }
+      if (rows.length === 0) {
+        // If no orders exist yet, return a default value
+        res.json({ lastOrderId: 0});
+        return;
+      }
+      // Extract and send the last order ID
+      const lastOrderId = rows[0].Order_id;
+      res.json({ lastOrderId });
+    });
+  });
+  // POST endpoint to update stock quantity
+  app.get('/api/medicine/:id', (req, res) => {
+    const medicineId = req.params.id;
+    const selectQuery = 'SELECT * FROM medicine WHERE Medicine_id = ?';
+   db.query(selectQuery, [medicineId], (err, rows) => {
+      if (err) {
+        console.error('Error executing MySQL query: ', err);
+        res.status(500).json({ error: 'Error fetching medicine details' });
+        return;
+      }
+      if (rows.length === 0) {
+        res.status(404).json({ error: 'Medicine not found' });
+        return;
+      }
+      const medicineDetails = rows[0];
+      res.json(medicineDetails);
+    });
+  });
   
+  // PUT endpoint to update stock quantity for a medicine
+  // PUT endpoint to update the quantity of an item in the cart
+  app.put('/api/update/:medicineId/:Med_quant', (req, res) => {
+    const { medicineId,Med_quant} = req.params;
+    
+  console.log(Med_quant);
+    // Construct the UPDATE query to update the quantity of the item in the cart
+    const updateQuery = `UPDATE medicine SET Stock_Quant = ? WHERE  Medicine_id = ?`;
+  
+    // Execute the query
+   db.query(updateQuery, [Med_quant, medicineId], (err, result) => {
+      if (err) {
+        console.error('Error executing MySQL query:', err);
+        res.status(500).json({ error: 'Error updating quantity in cart' });
+        return;
+      }
+  
+      // Check if any rows were affected (item updated)
+      if (result.affectedRows === 0) {
+        console.log("no item found");
+        // If no rows were affected, the item may not have been found in the cart
+        res.status(404).json({ error: 'Item not found in cart' });
+        return;
+      }
+      ;
+  
+        });
+      });
+   
+  
+      app.post('/api/addmedicine', (req, res) => {
+        const { Med_name, Med_Description, Unit_price, Stock_Quant } = req.body;
+      
+        // Validate the request body here if needed
+        
+        const insertQuery = 'INSERT INTO medicine (Med_name, Med_Description, Unit_price, Stock_Quant) VALUES (?, ?, ?, ?)';
+        db.query(insertQuery, [Med_name, Med_Description, Unit_price, Stock_Quant], (err, result) => {
+          if (err) {
+            console.error('Error adding medicine:', err);
+            res.status(500).json({ error: 'Error adding medicine' });
+            return;
+          }
+          console.log('Medicine added successfully');
+          res.status(201).json({ message: 'Medicine added successfully' });
+        });
+      });
+
+      // GET endpoint to fetch all medicines
+app.get('/api/fetchmedicines', (req, res) => {
+    db.query('SELECT * FROM medicine', (err, result) => {
+      if (err) {
+        console.error('Error fetching medicines:', err);
+        res.status(500).json({ error: 'Error fetching medicines' });
+        return;
+      }
+      res.json(result);
+    });
+  });
+  
+  // DELETE endpoint to delete a medicine by ID
+app.delete('/api/deletemedicines/:id', (req, res) => {
+    const medicineId = req.params.id;
+    db.query('DELETE FROM medicine WHERE Medicine_id = ?', [medicineId], (err, result) => {
+      if (err) {
+        console.error('Error deleting medicine:', err);
+        res.status(500).json({ error: 'Error deleting medicine' });
+        return;
+      }
+      res.status(200).json({ message: 'Medicine deleted successfully' });
+    });
+  });
+  
+
+  // PUT endpoint to update stock quantity of a medicine by ID
+app.put('/api/updatemedicines/:id', (req, res) => {
+    const medicineId = req.params.id;
+    const { Stock_Quant } = req.body;
+    db.query('UPDATE medicine SET Stock_Quant = ? WHERE Medicine_id = ?', [Stock_Quant, medicineId], (err, result) => {
+      if (err) {
+        console.error('Error updating stock quantity:', err);
+        res.status(500).json({ error: 'Error updating stock quantity' });
+        return;
+      }
+      res.status(200).json({ message: 'Stock quantity updated successfully' });
+    });
+  });
+  
+
+
 
 
            

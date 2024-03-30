@@ -83,7 +83,7 @@ navigate('/addslots',{ state:{ doctor: doctor } })
             <button className="managedoctors-remove" onClick={() => handleRemoveDoctor(doctor.doc_id)}>
               Remove Doctor
             </button>
-            <button className='managedoctors-remove' onClick={()=>updateslots(doctor)}>Update slots</button>
+            <button className='update_slots-doctors-remove ' onClick={()=>updateslots(doctor)}>Update slots</button>
             <button className='managedoctors-remove' onClick={()=>deleteslots(doctor)}>Delete slots</button>
             </div>
           </div>

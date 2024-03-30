@@ -19,7 +19,16 @@ import './App.css';
 import Home from './pages/Home/home';
 import Vp from './pages/Viewprescription/viewprescription.js';
 import Admin_login from './Admin_pages/Admin_login/Admin_login.js';
-import Admin_home from './Admin_pages/Admin_home/adminhome.js'
+import Admin_home from './Admin_pages/Admin_home/adminhome.js';
+import AddMedicine from './Admin_pages/Manage_inventory/addmedicine.js';
+import Manageinventory from './Admin_pages/Manage_inventory/manageinventory.js';
+
+//
+import ViewCart from "../src/Ecommerce/viewCart/viewCart"
+import Cart from "../src/Ecommerce/cart/cart";
+import Search from "../src/Ecommerce/search/search"
+import Buy from "./Ecommerce/buy/buy";
+import ManageInventory from './Admin_pages/Manage_inventory/manageinventory.js';
 function App() {
   return (
     <div className="App">
@@ -45,6 +54,19 @@ function App() {
     <Route path='/view_prescription' element={<Vp/>}/>
     <Route path='/adminlogin' element ={<Admin_login/>}/>
     <Route path='/adminhome' element  ={<Admin_home/>}/>
+    <Route path='/addmedicine' element  ={<AddMedicine/>}/>
+    
+    <Route path='/manageinventory' element  ={<ManageInventory/>}/>
+
+     
+    
+    <Route path="/cart" element={<Cart/>}/>
+    <Route path="/cart/buy" element={<ViewCart/>}/>
+    
+    <Route path="/cart/order" element={<ViewCart/>}/>
+    <Route path="cart/search" element={<Search/>}/>
+    <Route path="/buy" element={<Buy/>}/>
+
 
     </Routes>
     </Router>

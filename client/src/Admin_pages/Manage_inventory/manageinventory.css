@@ -1,0 +1,104 @@
+.manage-medicine-inventory-container {
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    max-width: 1200px; /* Limit container width */
+  }
+  
+  .manage-medicine-inventory-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center; /* Center align heading */
+  }
+  
+  .manage-medicine-search-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box; /* Ensure padding doesn't increase width */
+  }
+  
+  .manage-medicine-add-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .manage-medicine-add-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .manage-medicine-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Center align cards */
+  }
+  
+  .manage-medicine-card {
+    width: calc(33.33% - 20px);
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    box-sizing: border-box; /* Ensure padding doesn't increase width */
+  }
+  
+  .manage-medicine-card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .manage-medicine-card p {
+    margin-bottom: 10px;
+  }
+  
+  .manage-medicine-remove-button{
+    display: block; /* Ensure buttons take full width */
+    width: 100%;
+    margin-top: 15px; /* Add margin between buttons */
+    padding: 10px;
+    background-color: #dc3545; /* Red color for remove button */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .manage-medicine-update-stock-button {
+    display: block; /* Ensure buttons take full width */
+    width: 100%;
+    margin-top: 15px; /* Add margin between buttons */
+    padding: 10px;
+    background-color: #007bff; /* Red color for remove button */
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .manage-medicine-remove-button:hover{
+    background-color: #c82333;
+  }
+  .manage-medicine-update-stock-button:hover {
+    background-color: #0056b3; /* Darker red on hover */
+  }
+  
+  .manage-medicine-stock-input {
+    width: calc(100% - 30px); /* Adjust input width to accommodate buttons */
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box; /* Ensure padding doesn't increase width */
+  }
+  

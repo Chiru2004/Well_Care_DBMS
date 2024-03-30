@@ -44,9 +44,20 @@
     transition: background-color 0.3s ease;
     align-self: center; /* Center button vertically */
   }
+
+  .update_slots-doctors-remove {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px; /* Adjust padding */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center; /* Center button vertically */
+  }
   
-  .managedoctors-remove:hover {
-    background-color: #ff7875;
+  .update_slots-doctors-remove :hover {
+    background-color: rgb(73, 73, 255);
   }
   
   .managedoctorsbutton{

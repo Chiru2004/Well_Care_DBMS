@@ -63,10 +63,13 @@ const Home = () => {
           <nav>
         <ul>
         <center>
-        <button className="button" onClick={handlebookAppointments}>Book an Appointments</button>
-        <button className="button" onClick={handleViewAppointments}>View Upcoming Appointments</button>
-        <button className="button" onClick={handleViewHistory}>View Medical History</button>
-        <button className="button" onClick={handleLogout}>Logout</button>
+        <button className="cbutton" onClick={handlebookAppointments}>Book an Appointments</button>
+        <button className="cbutton" onClick={handleViewAppointments}>View Upcoming Appointments</button>
+        <button className="cbutton" onClick={handleViewHistory}>View Medical History</button>
+        <button className="cbutton" onClick={()=>navigate('/cart')}>Order Products</button>
+        <button className="cbutton" onClick={handleLogout}>Logout</button>
+
+
         </center>
         </ul>
           </nav>
